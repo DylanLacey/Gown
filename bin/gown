@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'gown'
+
+file_to_strip = ARGV[0]
+file_to_write = ARGV[1]
+
+if file_to_write.nil?
+	file_to_write = file_to_strip + ".stripped"
+end
+
+Gown.strip_file file_to_strip, file_to_write
