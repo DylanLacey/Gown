@@ -21,6 +21,7 @@ module Gown
       begin
 
         lines_removed = 0
+        blank_lines_removed = 0
 
         spinner.auto_spin
         input = File.open input_filename
@@ -29,15 +30,21 @@ module Gown
         output = File.new output_filename, "a"
 
         input.each do |line|
-          filtered = patterns_to_remove.find { |pattern| pattern.match line }
-          if !filtered
-            output.puts line
+          if line.match /^[[:space:]]*$/
+            blank_lines_removed +=1
           else
-            lines_removed+= 1
+            filtered = patterns_to_remove.find { |pattern| pattern.match line }
+            if !filtered
+              output.puts line
+            else
+              lines_removed+= 1
+            end
           end
         end
 
-        spinner.success " -- Removed #{lines_removed} lines"
+        status = " -- Removed #{lines_removed} lines"
+        status << ", #{blank_lines_removed} blank lines" if blank_lines_removed > 0
+        spinner.success status
       rescue => e
         spinner.error "Something dire happened!"
         puts e
