@@ -23,14 +23,15 @@ module Gown
       output = ""
 
       input.each do |line|
-      if line.match /^[[:space:]]*$/
-        # blank_lines_removed +=1
-      else
-        filtered = patterns_to_remove.find { |pattern| pattern.match line }
-        if !filtered
-          output.append line
+        if line.match /^[[:space:]]*$/
+          # blank_lines_removed +=1
         else
-          # lines_removed+= 1
+          filtered = patterns_to_remove.find { |pattern| pattern.match line }
+          if !filtered
+            output.append line
+          else
+            # lines_removed+= 1
+          end
         end
       end
 
