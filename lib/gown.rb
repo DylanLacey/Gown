@@ -13,22 +13,22 @@ module Gown
         Gown::Patterns::KGP_traffic +
         Gown::Patterns::CHANNEL_events +
         Gown::Patterns::MAIN_lifecycle
-      ).map {|pattern| Regexp.new (Gown::Patterns::Timestamp + pattern)}
+      ).map {|pattern| Regexp.new (Gown::Patterns::New_Timestamp + pattern)}
 
       return patterns_to_remove
     end
 
     def strip input
       patterns_to_remove = patterns
-      output = ""
+      output = []
 
-      input.each do |line|
+      input.each_line do |line|
         if line.match /^[[:space:]]*$/
           # blank_lines_removed +=1
         else
           filtered = patterns_to_remove.find { |pattern| pattern.match line }
           if !filtered
-            output.append line
+            output << line
           else
             # lines_removed+= 1
           end

@@ -2,6 +2,7 @@ module Gown
   class Patterns
 
     Timestamp = '(?<date>[[:digit:]]{8})[[:blank:]](?<time>[[:digit:]]{6}\.[[:digit:]]{,3})[[:blank:]]\[[[:digit:]]{1,5}\][[:blank:]]'
+    New_Timestamp = '(?<date>[[:digit:]]{4}-[[:digit:]]{1,2}-[[:digit:]]{1,2})[[:blank:]](?<time>[[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}\.[[:digit:]]{,3})[[:blank:]]\[[[:digit:]]{1,5}\][[:blank:]]'
 
     KGP_lifecycle = [
       'KGP got keepalive request',
@@ -21,7 +22,7 @@ module Gown
     ]
 
     KGP_metadata = [
-      'KGP -> announcement metadata=\{"username"\: "[[:alnum:]]+", "access_key"\: "([[:alnum:]]|-)+"\}',
+      'KGP -> announcement metadata=\{"username"\: "[[:alnum:]]+", "access_key"\: "([[:alnum:]]|-|\*)+"\}',
       'KGP <- announcement [[:digit:]]+ bytes, metadata: \{"last_seen_seq": [[:digit:]]+\}', 
     ]
 
